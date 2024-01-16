@@ -10,20 +10,20 @@ var app = express();
 var cors = require('cors');
 app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
-app.get("/", (req, res) => {
-  // res.send('Hello Express')
-  res.sendFile(__dirname +'/views/index.html')
-})
+// app.get("/", (req, res) => {
+//   // res.send('Hello Express')
+//   res.sendFile(__dirname +'/views/index.html')
+// })
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'), (req, res) => {
   res.sendFile(__dirname +'/public/style.css')
 });
 
-// // http://expressjs.com/en/starter/basic-routing.html
-// app.get("/", function (req, res) {
-//   res.sendFile(__dirname + '/views/index.html');
-// });
+// http://expressjs.com/en/starter/basic-routing.html
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + '/views/index.html');
+});
 
 
 // your first API endpoint... 
