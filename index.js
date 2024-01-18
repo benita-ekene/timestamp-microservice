@@ -10,6 +10,27 @@ var app = express();
 var cors = require('cors');
 app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
+app.get('/api/:date?', (req, res) => {
+  try {
+    const dateString = req.params.date || '';
+    const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+      throw new Error('Invalid Date');
+    }
+
+    const response = {
+      unix: date.getTime(),
+      utc: date.toUTCString(),
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.error(error); // Log errors for debugging
+    res.status(400).json({ error: 'Invalid Date' });
+  }
+});
+
 app.get("/", (req, res) => {
   // res.send('Hello Express')
   res.sendFile(__dirname +'/views/index.html')
